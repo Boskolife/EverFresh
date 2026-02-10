@@ -1,0 +1,96 @@
+.locations {
+  @include adaptive-value('padding-top', 50, 32, 1);
+  @include adaptive-value('padding-bottom', 50, 32, 1);
+
+  &__inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+
+    @include media('<desktop') {
+      flex-direction: column;
+    }
+  }
+
+  &__content{
+    max-width: 585px;
+    width: 100%;
+
+    @include media('<desktop') {
+      max-width: 100%;
+    }
+  }
+
+  &__label{
+    color: $blue;
+
+    &::before {
+      background-color: $blue;
+    }
+  }
+
+  &__title{
+    @include adaptive-value('margin-bottom', 16, 8, 1);
+  }
+
+  &__description{
+    @include adaptive-value('margin-bottom', 16, 12, 1);
+  }
+
+  &__list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    @include media ("<tablet") {
+        gap: 8px;
+    }
+  }
+
+  &__list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__btn{
+    padding: 8px 16px;
+    background-color: $whiteF4;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: $gray;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    @include media ("<tablet") {
+        padding: 8px 12px;
+    }
+
+    &.active{
+      background-color: $orange;
+      color: $white;
+    }
+  }
+
+  &__map{
+    max-width: 630px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    border-radius: 24px;
+    overflow: hidden;
+
+    @include media ("<desktop") {
+        max-width: 100%;
+    }
+
+    img{
+      width: 100%;
+    }
+  }
+}

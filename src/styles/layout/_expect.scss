@@ -1,0 +1,89 @@
+.expect {
+  @include adaptive-value('padding-top', 50, 32, 1);
+  @include adaptive-value('padding-bottom', 50, 32, 1);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+
+    @include media('<desktop') {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__img {
+    max-width: 640px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 24px;
+
+    @include media ("<desktop") {
+        max-width: 100%;
+      }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    max-width: 590px;
+    width: 100%;
+
+    @include media('<desktop') {
+      max-width: 100%;
+    }
+  }
+
+  &__title {
+    @include adaptive-value('margin-bottom', 16, 8, 1);
+
+    .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: $orange;
+      border-radius: 50%;
+      margin: 0 0 0 2px;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &__item-icon {
+        width:20px;
+        height: 20px;
+
+        @include media ("<phone") {
+            width: 16px;
+            height: 16px;
+        }
+    }
+  }
+
+  &__description {
+    &.bold {
+      margin-top: 8px;
+      font-weight: 500;
+      color: $black;
+    }
+  }
+}

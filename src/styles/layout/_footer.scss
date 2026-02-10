@@ -1,1 +1,43 @@
-#footer {}
+.footer {
+  @include adaptive-value('padding-top', 30, 24, 1);
+  @include adaptive-value('padding-bottom', 18, 16, 1);
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+
+    @include media('<tablet') {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__text {
+    @include adaptive-value('font-size', 14, 12, 1);
+    color: #474a59b2;
+
+    @include media('<tablet') {
+      text-align: center;
+      max-width: 250px;
+    }
+  }
+
+  &__creator {
+    display: block;
+    width: 182px;
+    height: 24px;
+    overflow: hidden;
+
+    @include media('<tablet') {
+      width: 150px;
+      height: 20px;
+    }
+
+    &-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}

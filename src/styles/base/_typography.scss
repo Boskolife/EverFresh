@@ -13,52 +13,59 @@ h5,
 h6,
 .h6,
 .h {
-	font-weight: bold;
-	margin: 0 0 0.5em;
-	color: $headings-color;
+  margin: 0;
+  color: $headings-color;
+  font-weight: 600;
+  line-height: 96%;
+  letter-spacing: -0.02em;
 }
 
 h1,
 .h1 {
-	font-size: $h1-font-size;
+  font-size: $h1-font-size;
 }
 
 h2,
 .h2 {
-	font-size: $h2-font-size;
+  @include adaptive-value('font-size', 48, 32, 1);
+  color: $black;
 }
 
 h3,
 .h3 {
-	font-size: $h3-font-size;
+  font-size: $h3-font-size;
 }
 
 h4,
 .h4 {
-	font-size: $h4-font-size;
+  font-size: $h4-font-size;
 }
 
 h5,
 .h5 {
-	font-size: $h5-font-size;
+  font-size: $h5-font-size;
 }
 
 h6,
 .h6 {
-	font-size: $h6-font-size;
+  font-size: $h6-font-size;
 }
 
 p {
-	margin: 0 0 1em;
+  margin: 0;
+  @include adaptive-value('font-size', 18, 16, 1);
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  color: $gray;
 }
 
 a {
-	color: $base-link-color;
-	text-decoration: none;
-	transition: color .3s ease;
+  color: $base-link-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
 
-	&:hover,
-	&:focus {
-		text-decoration: none;
-	}
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
 }

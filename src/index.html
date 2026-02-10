@@ -9,7 +9,24 @@
 </head>
 
 <body>
-  {{> header }}
+  <div id="wrapper">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    {{> header }}
+    <main id="main">
+    {{> section-hero }}
+    {{> section-positioning }}
+    {{> section-why }}
+    {{> section-team }}
+    {{> section-locations }}
+    {{> section-services-exterior }}
+    {{> section-services-interior }}
+    {{> section-reviews }}
+    {{> section-work }}
+    {{> section-expect }}
+    {{> section-transform }}
+    </main>
+    {{> footer}}
+  </div>
   <script type="module" src="/js/main.js"></script>
 </body>
 

@@ -1,0 +1,111 @@
+.reviews {
+  @include adaptive-value('padding-top', 50, 32, 1);
+  @include adaptive-value('padding-bottom', 50, 32, 1);
+
+  &__inner {
+    text-align: center;
+    max-width: 845px;
+    width: 100%;
+    margin: 0 auto;
+    @include adaptive-value('margin-bottom', 48, 32, 1);
+  }
+
+  &__label {
+    justify-content: center;
+  }
+
+  &__title {
+    @include adaptive-value('margin-bottom', 32, 24, 1);
+
+    @include media ("<phone") {
+      max-width: 250px;
+      width: 100%;
+      margin: 0 auto 24px auto;
+    }
+  }
+
+  .swiper-slide {
+    width: auto !important;
+    min-height: 100%;
+    height: auto;
+  }
+
+  &__slider {
+    max-width: 1312px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px !important;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    width: 257px;
+    min-height: calc(100% - 48px);
+    height: auto;
+    @include adaptive-value('border-radius', 24, 16, 1);
+    background-color: $whiteF4;
+    padding: 24px;
+
+    @include media('<tablet') {
+      padding: 16px;
+      min-height: calc(100% - 32px);
+    }
+
+    &-stars {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      @include adaptive-value('margin-bottom', 16, 8, 1);
+    }
+
+    &-text {
+      @include adaptive-value('font-size', 16, 14, 1);
+      line-height: 150%;
+      margin-bottom: 16px;
+    }
+
+    &-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    &-author-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+
+      @include media('<tablet') {
+        width: 32px;
+        height: 32px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &-author-name {
+      @include adaptive-value('font-size', 16, 14, 1);
+      line-height: 110%;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  &__slider-buttons {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    @include media ("<desktop") {
+      display: flex;
+    }
+  }
+}
