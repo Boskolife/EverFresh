@@ -57,4 +57,13 @@
     text-align: center;
     @include adaptive-value('margin-bottom', 32, 24, 1);
   }
+
+  &__btn {
+    &:hover {
+      background-color: $orange;
+      color: $white;
+      border-color: $white;
+      transition: all 0.3s ease;
+    }
+  }
 }
