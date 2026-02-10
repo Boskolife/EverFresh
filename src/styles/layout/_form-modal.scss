@@ -1,0 +1,556 @@
+// Form modal – choice groups with icons (radio/checkbox styled as buttons)
+
+.form-modal {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.25s ease;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  &--open &__overlay {
+    opacity: 1;
+  }
+
+  &__close {
+    position: absolute;
+    z-index: 101;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba($alpha: 0.3, $color: $white);
+    border: none;
+    backdrop-filter: blur(16px);
+
+    @include media('<tablet') {
+      width: 40px;
+      height: 40px;
+    }
+
+    span {
+      width: 45%;
+      height: 1px;
+      background-color: $white;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &:first-child {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      &:last-child {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
+  }
+
+  &__inner {
+    background-color: $white;
+    position: relative;
+    z-index: 101;
+    max-width: 580px;
+    width: calc(100% - 32px);
+    height: auto;
+    padding: 32px;
+    border-radius: 24px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+
+    @include media('<tablet') {
+      padding: 24px 16px 16px;
+      border-radius: 16px;
+    }
+  }
+
+  &--open &__inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &__title {
+    @include adaptive-value('font-size', 32, 24, 1);
+    font-weight: 600;
+    line-height: 120%;
+    color: $black;
+    @include adaptive-value('margin-bottom', 24, 16, 1);
+  }
+
+  &__error-msg {
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: #fef2f2;
+    color: #b91c1c;
+    font-size: 14px;
+    line-height: 1.4;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__question {
+    display: block;
+    @include adaptive-value('font-size', 18, 16, 1);
+    line-height: 120%;
+    @include adaptive-value('margin-bottom', 12, 8, 1);
+  }
+
+  &__choices {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    @include adaptive-value('margin-bottom', 24, 16, 1);
+
+    @include media('<tablet') {
+      gap: 8px;
+    }
+  }
+
+  &__choice {
+    width: 100%;
+  }
+
+  &__choice-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 12px 16px;
+    background-color: $whiteF4;
+    border: 1px solid #e7e7f0;
+    cursor: pointer;
+  }
+
+  &__choice-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+
+    &:focus-visible + .form-modal__choice-box {
+      outline: 2px solid $black;
+      outline-offset: 2px;
+    }
+
+    &:checked + .form-modal__choice-box {
+      background-color: $blue;
+      border-color: $blue;
+      transition: all 0.3s ease;
+
+      .form-modal__choice-label {
+        color: $white;
+        transition: color 0.3s ease;
+      }
+
+      .form-modal__choice-icon {
+        svg {
+          path {
+            fill: $white;
+            transition: fill 0.3s ease;
+          }
+        }
+      }
+    }
+
+    &[aria-invalid='true'] + .form-modal__choice-box {
+      border-color: #b91c1c;
+      box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.2);
+    }
+  }
+
+  &__choice-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      path {
+        fill: $gray;
+      }
+    }
+  }
+
+  &__choice-label {
+    font-size: 18px;
+    line-height: 150%;
+    color: $gray;
+  }
+
+  &__agree {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+
+  &__agree-text {
+    display: block;
+    @include adaptive-value('font-size', 16, 12, 1);
+    color: $gray;
+    line-height: 130%;
+    letter-spacing: -0.01em;
+
+    a {
+      color: $blue;
+      font-weight: 500;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $orange;
+        transition: color 0.3s ease;
+      }
+    }
+  }
+
+  &__next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    white-space: nowrap;
+
+    @include media('<tablet') {
+      padding: 10px 12px;
+      gap: 10px;
+    }
+
+    &:disabled {
+      background-color: #e7e7f0;
+      backdrop-filter: blur(16px);
+      color: #898da2;
+      cursor: not-allowed;
+
+      .form-modal__next-arrow {
+        svg {
+          path {
+            stroke: #898da2;
+          }
+        }
+      }
+    }
+
+    &:not(:disabled):hover {
+      .form-modal__next-arrow {
+        svg {
+          path {
+            stroke: $orange;
+            transition: stroke 0.3s ease;
+          }
+        }
+      }
+    }
+
+    &-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      transform: rotate(180deg);
+
+      @include media ("<tablet") {
+        width: 15px;
+        height: 15px;
+      }
+
+      &.back-arrow {
+        transform: none;
+      }
+
+      &.check-arrow {
+        transform: none;
+        width: 24px;
+        height: 24px;
+
+        svg {
+          path {
+            fill: $white;
+            transition: fill 0.3s ease;
+          }
+        }
+      }
+
+      svg {
+        path {
+          stroke: $white;
+          transition: stroke 0.3s ease;
+        }
+      }
+    }
+  }
+
+  &__input-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 12px;
+
+    @include media('<tablet') {
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .form-modal__input {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    border: 1px solid #e7e7f0;
+    border-radius: 8px;
+    padding: 10px 16px;
+    background-color: $whiteF4;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 150%;
+    color: $gray;
+    transition: all 0.3s ease;
+
+    @include media('<tablet') {
+      padding: 8px 16px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 12px;
+
+      @include media('<tablet') {
+        margin-bottom: 8px;
+      }
+    }
+
+    &[aria-invalid='true'] {
+      border-color: #b91c1c;
+      box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.2);
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    @include adaptive-value('margin-top', 24, 12, 1);
+  }
+
+  &__step {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+
+  // Time estimate grid
+  &__description {
+    @include adaptive-value('font-size', 16, 14, 1);
+    line-height: 150%;
+    color: $gray;
+    margin-bottom: 16px;
+  }
+
+  &__time-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  &__time-grid-row {
+    display: grid;
+    grid-template-columns: 72px repeat(3, minmax(80px, 1fr));
+    gap: 8px;
+    align-items: stretch;
+
+    @include media('<tablet') {
+      grid-template-columns: 45px repeat(3, minmax(80px, 1fr));
+    }
+  }
+
+  &__time-grid-cell {
+    &--empty {
+      width: 72px;
+    }
+
+    &--head {
+      @include adaptive-value('font-size', 18, 14, 1);
+      color: $gray;
+      text-align: center;
+      padding: 10px 8px;
+      border-radius: 8px;
+      border: 1px solid #e7e7f0;
+    }
+
+    &--day {
+      display: flex;
+      align-items: center;
+      @include adaptive-value('font-size', 18, 14, 1);
+      color: $gray;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid #e7e7f0;
+
+      @include media('<tablet') {
+        padding: 9px 8px;
+      }
+    }
+
+    &--slot {
+      padding: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__time-grid-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+
+    &:focus-visible + .form-modal__time-grid-box {
+      outline: 2px solid $black;
+      outline-offset: 2px;
+    }
+
+    &:checked + .form-modal__time-grid-box {
+      background-color: $blue;
+      border-color: $blue;
+
+      .form-modal__time-grid-check {
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+
+    &[aria-invalid='true'] + .form-modal__time-grid-box {
+      border-color: #b91c1c;
+      box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.2);
+    }
+  }
+
+  &__time-grid-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border-radius: 8px;
+    background-color: $whiteF4;
+    border: 1px solid #e7e7f0;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+
+    @include media('<tablet') {
+      height: 40px;
+    }
+
+    .form-modal__time-grid-cell--slot:hover & {
+      border-color: darken(#e7e7f0, 8%);
+    }
+  }
+
+  &__time-grid-check {
+    display: inline-flex;
+    color: #d3d4e5;
+
+    svg path {
+      fill: currentColor;
+    }
+  }
+
+  &__step-4 {
+    text-align: center;
+
+    .form-modal__title {
+      margin-bottom: 12px;
+    }
+
+    .form-modal__description {
+      @include adaptive-value('font-size', 18, 16, 1);
+
+      a {
+        color: $blue;
+        font-weight: 500;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $orange;
+          transition: color 0.3s ease;
+        }
+      }
+    }
+
+    .form-modal__next {
+      width: max-content;
+      margin: 0 auto;
+      padding: 16px;
+
+      @include media ("<tablet") {
+        padding: 12px 16px;
+      }
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto;
+    @include adaptive-value('margin-bottom', 32, 24, 1);
+  }
+}

@@ -1,0 +1,462 @@
+<div class="form-modal">
+    <div class="form-modal__overlay"></div>
+    <button type="button" class="form-modal__close" aria-label="Close">
+        <span></span>
+        <span></span>
+    </button>
+    <div class="form-modal__inner">
+        <div class="form-modal__content">
+            <div class="form-modal__step form-modal__step-1">
+                <h3 class="form-modal__title">Project Information</h3>
+                <p class="form-modal__error-msg" role="alert" aria-live="polite" data-step-error hidden></p>
+                <form class="form-modal__form">
+                    <div class="form-modal__field">
+                        <span class="form-modal__question">What type of property needs painting?</span>
+                        <div class="form-modal__choices" role="group" aria-label="Property type">
+                            <label class="form-modal__choice">
+                                <input type="radio" name="property-type" value="home" class="form-modal__choice-input"
+                                    checked>
+                                <span class="form-modal__choice-box">
+                                    <span class="form-modal__choice-icon" aria-hidden="true">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M22 21.25H21V9.98C21 9.36 20.72 8.78 20.23 8.4L19 7.44L18.98 4.99C18.98 4.44 18.53 4 17.98 4H14.57L13.23 2.96C12.51 2.39 11.49 2.39 10.77 2.96L3.77 8.4C3.28 8.78 3 9.36 3 9.97L2.95 21.25H2C1.59 21.25 1.25 21.59 1.25 22C1.25 22.41 1.59 22.75 2 22.75H22C22.41 22.75 22.75 22.41 22.75 22C22.75 21.59 22.41 21.25 22 21.25ZM6.5 12.75V11.25C6.5 10.7 6.95 10.25 7.5 10.25H9.5C10.05 10.25 10.5 10.7 10.5 11.25V12.75C10.5 13.3 10.05 13.75 9.5 13.75H7.5C6.95 13.75 6.5 13.3 6.5 12.75ZM14.5 21.25H9.5V18.5C9.5 17.67 10.17 17 11 17H13C13.83 17 14.5 17.67 14.5 18.5V21.25ZM17.5 12.75C17.5 13.3 17.05 13.75 16.5 13.75H14.5C13.95 13.75 13.5 13.3 13.5 12.75V11.25C13.5 10.7 13.95 10.25 14.5 10.25H16.5C17.05 10.25 17.5 10.7 17.5 11.25V12.75Z"
+                                                fill="" />
+                                        </svg>
+                                    </span>
+                                    <span class="form-modal__choice-label">Home</span>
+                                </span>
+                            </label>
+                            <label class="form-modal__choice">
+                                <input type="radio" name="property-type" value="business"
+                                    class="form-modal__choice-input">
+                                <span class="form-modal__choice-box">
+                                    <span class="form-modal__choice-icon" aria-hidden="true">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M22 21.25H2C1.59 21.25 1.25 21.59 1.25 22C1.25 22.41 1.59 22.75 2 22.75H22C22.41 22.75 22.75 22.41 22.75 22C22.75 21.59 22.41 21.25 22 21.25Z"
+                                                fill="" />
+                                            <path
+                                                d="M17 2H7C4 2 3 3.79 3 6V22H21V6C21 3.79 20 2 17 2ZM10 17.25H7C6.59 17.25 6.25 16.91 6.25 16.5C6.25 16.09 6.59 15.75 7 15.75H10C10.41 15.75 10.75 16.09 10.75 16.5C10.75 16.91 10.41 17.25 10 17.25ZM10 12.75H7C6.59 12.75 6.25 12.41 6.25 12C6.25 11.59 6.59 11.25 7 11.25H10C10.41 11.25 10.75 11.59 10.75 12C10.75 12.41 10.41 12.75 10 12.75ZM10 8.25H7C6.59 8.25 6.25 7.91 6.25 7.5C6.25 7.09 6.59 6.75 7 6.75H10C10.41 6.75 10.75 7.09 10.75 7.5C10.75 7.91 10.41 8.25 10 8.25ZM17 17.25H14C13.59 17.25 13.25 16.91 13.25 16.5C13.25 16.09 13.59 15.75 14 15.75H17C17.41 15.75 17.75 16.09 17.75 16.5C17.75 16.91 17.41 17.25 17 17.25ZM17 12.75H14C13.59 12.75 13.25 12.41 13.25 12C13.25 11.59 13.59 11.25 14 11.25H17C17.41 11.25 17.75 11.59 17.75 12C17.75 12.41 17.41 12.75 17 12.75ZM17 8.25H14C13.59 8.25 13.25 7.91 13.25 7.5C13.25 7.09 13.59 6.75 14 6.75H17C17.41 6.75 17.75 7.09 17.75 7.5C17.75 7.91 17.41 8.25 17 8.25Z"
+                                                fill="" />
+                                        </svg>
+                                    </span>
+                                    <span class="form-modal__choice-label">Business</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-modal__field">
+                        <span class="form-modal__question">What would you like to paint?</span>
+                        <div class="form-modal__choices form-modal__choices_no-icons" role="group"
+                            aria-label="Painting scope">
+                            <label class="form-modal__choice">
+                                <input type="radio" name="paint-scope" value="exterior" class="form-modal__choice-input"
+                                    checked>
+                                <span class="form-modal__choice-box">
+                                    <span class="form-modal__choice-label">Exterior</span>
+                                </span>
+                            </label>
+                            <label class="form-modal__choice">
+                                <input type="radio" name="paint-scope" value="interior"
+                                    class="form-modal__choice-input">
+                                <span class="form-modal__choice-box">
+                                    <span class="form-modal__choice-label">Interior</span>
+                                </span>
+                            </label>
+                            <label class="form-modal__choice">
+                                <input type="radio" name="paint-scope" value="both" class="form-modal__choice-input">
+                                <span class="form-modal__choice-box">
+                                    <span class="form-modal__choice-label">Both</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <label class="form-modal__agree">
+                        <input type="checkbox" name="agree" class="form-modal__agree-input" required>
+                        <span class="form-modal__agree-text">By clicking next or submit you agree to receive phone,
+                            email, or text communication from us per our <a href="#">Terms of Use</a> and <a
+                                href="#">Privacy Policy</a>.</span>
+                    </label>
+                    <button type="submit" class="btn btn_orange form-modal__next">
+                        Next
+                        <span class="form-modal__next-arrow" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.975 4.94141L2.91667 9.99974L7.975 15.0581" stroke="" stroke-width="1.5"
+                                    stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M17.0833 10H3.05833" stroke="" stroke-width="1.5" stroke-miterlimit="10"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+            </div>
+            <div class="form-modal__step form-modal__step-2">
+                <h3 class="form-modal__title">Contact Information</h3>
+                <p class="form-modal__error-msg" role="alert" aria-live="polite" data-step-error hidden></p>
+                <form class="form-modal__form">
+                    <div class="form-modal__field">
+                        <span class="form-modal__question">Your contact information:</span>
+                        <div class="form-modal__input-box">
+                            <input type="text" name="name" placeholder="First Name" class="form-modal__input" required>
+                            <input type="text" name="last-name" placeholder="Last Name" class="form-modal__input"
+                                required>
+                        </div>
+                        <input type="email" name="email" placeholder="Email" class="form-modal__input" required>
+                        <input type="tel" name="phone" placeholder="+49 160 606 6060" class="form-modal__input"
+                            required>
+                    </div>
+                    <div class="form-modal__buttons">
+                        <button type="submit" class="btn btn_orange form-modal__next back">
+                            <span class="form-modal__next-arrow back-arrow" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.975 4.94141L2.91667 9.99974L7.975 15.0581" stroke="" stroke-width="1.5"
+                                        stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M17.0833 10H3.05833" stroke="" stroke-width="1.5" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            Back
+                        </button>
+                        <button type="submit" class="btn btn_orange form-modal__next">
+                            Next
+                            <span class="form-modal__next-arrow" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.975 4.94141L2.91667 9.99974L7.975 15.0581" stroke="" stroke-width="1.5"
+                                        stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M17.0833 10H3.05833" stroke="" stroke-width="1.5" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="form-modal__step form-modal__step-3">
+                <h3 class="form-modal__title">Time Estimate</h3>
+                <p class="form-modal__error-msg" role="alert" aria-live="polite" data-step-error hidden></p>
+                <p class="form-modal__description">Please select the general days/times that may work better. We will
+                    call you back with some options and finalize your estimate.</p>
+
+                <div class="form-modal__time-grid" role="group" aria-label="Preferred days and times">
+                    <div class="form-modal__time-grid-row form-modal__time-grid-row--head">
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--empty"></span>
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--head">Morning</span>
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--head">Afternoon</span>
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--head">Evening</span>
+                    </div>
+
+                    <!-- Monday -->
+                    <div class="form-modal__time-grid-row">
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--day">Mon</span>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[mon]" value="morning" class="form-modal__time-grid-input"
+                                checked>
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[mon]" value="afternoon" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[mon]" value="evening" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Tuesday -->
+                    <div class="form-modal__time-grid-row">
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--day">Tue</span>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[tue]" value="morning" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[tue]" value="afternoon" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[tue]" value="evening" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Wednesday -->
+                    <div class="form-modal__time-grid-row">
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--day">Wed</span>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[wed]" value="morning" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[wed]" value="afternoon" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[wed]" value="evening" class="form-modal__time-grid-input"
+                                checked>
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Thursday -->
+                    <div class="form-modal__time-grid-row">
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--day">Thu</span>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[thu]" value="morning" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[thu]" value="afternoon" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[thu]" value="evening" class="form-modal__time-grid-input"
+                                checked>
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Friday -->
+                    <div class="form-modal__time-grid-row">
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--day">Fri</span>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[fri]" value="morning" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[fri]" value="afternoon" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[fri]" value="evening" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Saturday -->
+                    <div class="form-modal__time-grid-row">
+                        <span class="form-modal__time-grid-cell form-modal__time-grid-cell--day">Sat</span>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[sat]" value="morning" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[sat]" value="afternoon" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="form-modal__time-grid-cell form-modal__time-grid-cell--slot">
+                            <input type="radio" name="time[sat]" value="evening" class="form-modal__time-grid-input">
+                            <span class="form-modal__time-grid-box">
+                                <span class="form-modal__time-grid-check" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-modal__buttons">
+                    <button type="submit" class="btn btn_orange form-modal__next back">
+                        <span class="form-modal__next-arrow back-arrow" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.975 4.94141L2.91667 9.99974L7.975 15.0581" stroke="" stroke-width="1.5"
+                                    stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M17.0833 10H3.05833" stroke="" stroke-width="1.5" stroke-miterlimit="10"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        Back
+                    </button>
+                    <button type="submit" class="btn btn_orange form-modal__next">
+                        Send Preferred Times
+                        <span class="form-modal__next-arrow check-arrow" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"
+                                    fill="" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="form-modal__step form-modal__step-4">
+                <picture class="form-modal__img">
+                    <source srcset="/images/form-img.webp" type="image/webp">
+                    <img src="/images/form-img.png" alt="Thanks for Choosing EverFreshPaintworks!" width="100%"
+                        height="100%">
+                </picture>
+                <h2 class="form-modal__title">Thanks for Choosing EverFreshPaintworks!</h2>
+                <p class="form-modal__description">Your free estimate has been successfully scheduled. If you
+                    have any questions before your appointment, feel free to call us at <a href="tel:(416)5550198">(416)
+                        555-0198</a> — we’re happy to help.</p>
+                <button type="button" class="btn btn_orange form-modal__next">Back to Home</button>
+            </div>
+        </div>
+    </div>
+</div>

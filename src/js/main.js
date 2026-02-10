@@ -239,7 +239,372 @@ function initWorkSlider() {
   });
 }
 
+function initFormModal() {
+  const modal = document.querySelector('.form-modal');
+  if (!modal) return;
+
+  const overlay = modal.querySelector('.form-modal__overlay');
+  const closeButton = modal.querySelector('.form-modal__close');
+  const steps = Array.from(
+    modal.querySelectorAll('.form-modal__step'),
+  );
+
+  if (!steps.length) return;
+
+  const step1 = modal.querySelector('.form-modal__step-1');
+  const step2 = modal.querySelector('.form-modal__step-2');
+  const step3 = modal.querySelector('.form-modal__step-3');
+  const step4 = modal.querySelector('.form-modal__step-4');
+
+  const step1Form = step1?.querySelector('form');
+  const step2Form = step2?.querySelector('form');
+
+  let currentStepIndex = 0;
+
+  function setBodyScrollLocked(isLocked) {
+    const docEl = document.documentElement;
+
+    if (isLocked) {
+      const scrollbarWidth = window.innerWidth - docEl.clientWidth;
+      document.body.dataset.scrollLock = 'true';
+
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      document.body.style.overflow = 'hidden';
+    } else {
+      if (document.body.dataset.scrollLock) {
+        delete document.body.dataset.scrollLock;
+      }
+
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+  }
+
+  function getStepErrorEl(stepElement) {
+    return stepElement?.querySelector('[data-step-error]');
+  }
+
+  function clearStepErrors(stepElement) {
+    if (!stepElement) return;
+    stepElement.querySelectorAll('[aria-invalid="true"]').forEach((el) => {
+      el.removeAttribute('aria-invalid');
+    });
+    const errEl = getStepErrorEl(stepElement);
+    if (errEl) {
+      errEl.textContent = '';
+      errEl.hidden = true;
+    }
+  }
+
+  function showStepError(stepElement, message) {
+    const errEl = getStepErrorEl(stepElement);
+    if (errEl) {
+      errEl.textContent = message;
+      errEl.hidden = false;
+    }
+  }
+
+  function markInvalidField(field) {
+    if (!field) return;
+    field.setAttribute('aria-invalid', 'true');
+    if (typeof field.focus === 'function') {
+      field.focus();
+    }
+  }
+
+  function validateStep1() {
+    if (!step1) return true;
+    clearStepErrors(step1);
+
+    const propertyTypeFirst = step1.querySelector('input[name="property-type"]');
+    const propertyTypeChecked = step1.querySelector(
+      'input[name="property-type"]:checked',
+    );
+    if (!propertyTypeChecked) {
+      showStepError(step1, 'Please select a property type.');
+      markInvalidField(propertyTypeFirst);
+      return false;
+    }
+
+    const paintScopeFirst = step1.querySelector('input[name="paint-scope"]');
+    const paintScopeChecked = step1.querySelector(
+      'input[name="paint-scope"]:checked',
+    );
+    if (!paintScopeChecked) {
+      showStepError(step1, 'Please select what you would like to paint.');
+      markInvalidField(paintScopeFirst);
+      return false;
+    }
+
+    const agreeInput = step1.querySelector('input[name="agree"]');
+    if (!agreeInput || !agreeInput.checked) {
+      showStepError(
+        step1,
+        'Please accept the Terms of Use and Privacy Policy to continue.',
+      );
+      markInvalidField(agreeInput);
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateStep2() {
+    if (!step2) return true;
+    clearStepErrors(step2);
+
+    const firstNameInput = step2.querySelector('input[name="name"]');
+    const lastNameInput = step2.querySelector('input[name="last-name"]');
+    const emailInput = step2.querySelector('input[name="email"]');
+    const phoneInput = step2.querySelector('input[name="phone"]');
+
+    if (!firstNameInput || !lastNameInput || !emailInput || !phoneInput) {
+      return false;
+    }
+
+    if (!firstNameInput.value.trim()) {
+      showStepError(step2, 'Please enter your first name.');
+      markInvalidField(firstNameInput);
+      return false;
+    }
+
+    if (!lastNameInput.value.trim()) {
+      showStepError(step2, 'Please enter your last name.');
+      markInvalidField(lastNameInput);
+      return false;
+    }
+
+    if (!emailInput.value.trim()) {
+      showStepError(step2, 'Please enter your email address.');
+      markInvalidField(emailInput);
+      return false;
+    }
+
+    if (!phoneInput.value.trim()) {
+      showStepError(step2, 'Please enter your phone number.');
+      markInvalidField(phoneInput);
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateStep3() {
+    if (!step3) return true;
+    clearStepErrors(step3);
+
+    const checkedInputs = step3.querySelectorAll(
+      '.form-modal__time-grid-input:checked',
+    );
+
+    if (!checkedInputs.length) {
+      showStepError(
+        step3,
+        'Please select at least one preferred day and time slot.',
+      );
+      const firstSlotInput = step3.querySelector('.form-modal__time-grid-input');
+      markInvalidField(firstSlotInput);
+      return false;
+    }
+
+    return true;
+  }
+
+  function collectFormData() {
+    // Step 1
+    const propertyTypeValue =
+      modal.querySelector('input[name="property-type"]:checked')?.value || null;
+    const paintScopeValue =
+      modal.querySelector('input[name="paint-scope"]:checked')?.value || null;
+    const agreeChecked =
+      modal.querySelector('input[name="agree"]')?.checked || false;
+
+    // Step 2
+    const firstNameValue =
+      modal.querySelector('input[name="name"]')?.value.trim() || '';
+    const lastNameValue =
+      modal.querySelector('input[name="last-name"]')?.value.trim() || '';
+    const emailValue =
+      modal.querySelector('input[name="email"]')?.value.trim() || '';
+    const phoneValue =
+      modal.querySelector('input[name="phone"]')?.value.trim() || '';
+
+    // Step 3
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    const timeSelections = {};
+
+    days.forEach((day) => {
+      const checkedInput = modal.querySelector(
+        `input[name="time[${day}]"]:checked`,
+      );
+      timeSelections[day] = checkedInput ? checkedInput.value : null;
+    });
+
+    return {
+      project: {
+        propertyType: propertyTypeValue,
+        paintScope: paintScopeValue,
+        agreeToTerms: agreeChecked,
+      },
+      contact: {
+        firstName: firstNameValue,
+        lastName: lastNameValue,
+        email: emailValue,
+        phone: phoneValue,
+      },
+      timeEstimate: timeSelections,
+    };
+  }
+
+  function resetForm() {
+    // Step 1: project info
+    const propertyTypeHome = modal.querySelector(
+      'input[name="property-type"][value="home"]',
+    );
+    const paintScopeExterior = modal.querySelector(
+      'input[name="paint-scope"][value="exterior"]',
+    );
+    const agreeInput = modal.querySelector('input[name="agree"]');
+    if (propertyTypeHome) propertyTypeHome.checked = true;
+    if (paintScopeExterior) paintScopeExterior.checked = true;
+    if (agreeInput) agreeInput.checked = false;
+
+    // Step 2: contact fields
+    const nameInput = modal.querySelector('input[name="name"]');
+    const lastNameInput = modal.querySelector('input[name="last-name"]');
+    const emailInput = modal.querySelector('input[name="email"]');
+    const phoneInput = modal.querySelector('input[name="phone"]');
+    if (nameInput) nameInput.value = '';
+    if (lastNameInput) lastNameInput.value = '';
+    if (emailInput) emailInput.value = '';
+    if (phoneInput) phoneInput.value = '';
+
+    // Step 3: time grid – set morning for each day
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    days.forEach((day) => {
+      const morningRadio = modal.querySelector(
+        `input[name="time[${day}]"][value="morning"]`,
+      );
+      if (morningRadio) morningRadio.checked = true;
+    });
+
+    steps.forEach((step) => clearStepErrors(step));
+  }
+
+  function showStep(index) {
+    steps.forEach((step, stepIndex) => {
+      if (stepIndex === index) {
+        step.classList.add('form-modal__step--active');
+        clearStepErrors(step);
+      } else {
+        step.classList.remove('form-modal__step--active');
+      }
+    });
+    currentStepIndex = index;
+  }
+
+  function openModal() {
+    modal.classList.add('form-modal--open');
+    showStep(0);
+    setBodyScrollLocked(true);
+  }
+
+  function closeModal() {
+    modal.classList.remove('form-modal--open');
+    setBodyScrollLocked(false);
+  }
+
+  // Open modal when clicking any button on the site, except buttons inside the modal
+  const allButtons = Array.from(document.querySelectorAll('button'));
+  allButtons.forEach((button) => {
+    if (modal.contains(button)) return;
+
+    button.addEventListener('click', () => {
+      openModal();
+    });
+  });
+
+  // Close handlers
+  overlay?.addEventListener('click', () => {
+    closeModal();
+  });
+
+  closeButton?.addEventListener('click', () => {
+    closeModal();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal.classList.contains('form-modal--open')) {
+      closeModal();
+    }
+  });
+
+  // Step navigation
+  const step1Next = step1?.querySelector('.form-modal__next');
+  const step2Back = step2?.querySelector('.form-modal__next.back');
+  const step2Next = step2?.querySelector(
+    '.form-modal__next:not(.back)',
+  );
+  const step3Back = step3?.querySelector('.form-modal__next.back');
+  const step3Send = step3?.querySelector(
+    '.form-modal__next:not(.back)',
+  );
+  const step4Close = step4?.querySelector('.form-modal__next');
+
+  // Prevent default submit on internal forms (we handle steps manually)
+  step1Form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+  });
+
+  step2Form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+  });
+
+  step1Next?.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!validateStep1()) return;
+    showStep(1);
+  });
+
+  step2Back?.addEventListener('click', (event) => {
+    event.preventDefault();
+    showStep(0);
+  });
+
+  step2Next?.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!validateStep2()) return;
+    showStep(2);
+  });
+
+  step3Back?.addEventListener('click', (event) => {
+    event.preventDefault();
+    showStep(1);
+  });
+
+  step3Send?.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!validateStep3()) return;
+
+    const payload = collectFormData();
+    // Simulated request payload
+    console.log('EverFresh form modal payload:', payload);
+
+    resetForm();
+    showStep(3);
+  });
+
+  step4Close?.addEventListener('click', (event) => {
+    event.preventDefault();
+    closeModal();
+  });
+}
+
 updateCurrentYear();
 initBeforeAfterSlider();
 initReviewsSlider();
 initWorkSlider();
+initFormModal();

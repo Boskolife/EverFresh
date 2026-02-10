@@ -31,7 +31,6 @@ $media-expressions: (
 @import 'base/helpers';
 @import 'base/reset';
 @import 'base/typography';
-@import 'base/forms';
 @import 'base/buttons';
 
 @import 'layout/header';
@@ -46,6 +45,7 @@ $media-expressions: (
 @import 'layout/work';
 @import 'layout/expect';
 @import 'layout/transform';
+@import 'layout/form-modal';
 @import 'layout/footer';
 
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&display=swap');
