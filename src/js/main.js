@@ -688,13 +688,13 @@ function initFormModal() {
     if (emailInput) emailInput.value = '';
     if (phoneInput) phoneInput.value = '';
 
-    // Step 3: time grid – set morning for each day
+    // Step 3: time grid – uncheck all radio buttons (no default selection)
     const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     days.forEach((day) => {
-      const morningRadio = modal.querySelector(
-        `input[name="time[${day}]"][value="morning"]`,
-      );
-      if (morningRadio) morningRadio.checked = true;
+      const radioInputs = modal.querySelectorAll(`input[name="time[${day}]"]`);
+      radioInputs.forEach((input) => {
+        input.checked = false;
+      });
     });
 
     steps.forEach((step) => clearStepErrors(step));
