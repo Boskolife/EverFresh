@@ -1,0 +1,62 @@
+{
+  "oakville": {
+    "name": "Oakville",
+    "latitude": 43.467517,
+    "longitude": -79.6876659,
+    "coordinates": [43.467517, -79.6876659]
+  },
+  "burlington": {
+    "name": "Burlington",
+    "latitude": 43.38621,
+    "longitude": -79.83713,
+    "coordinates": [43.38621, -79.83713]
+  },
+  "mississauga": {
+    "name": "Mississauga",
+    "latitude": 43.5890452,
+    "longitude": -79.6441198,
+    "coordinates": [43.5890452, -79.6441198]
+  },
+  "hamilton": {
+    "name": "Hamilton",
+    "latitude": 43.2500208,
+    "longitude": -79.8660914,
+    "coordinates": [43.2500208, -79.8660914]
+  },
+  "waterloo": {
+    "name": "Waterloo",
+    "latitude": 43.4565521,
+    "longitude": -80.4638552,
+    "coordinates": [43.4565521, -80.4638552]
+  },
+  "guelph": {
+    "name": "Guelph",
+    "latitude": 43.5448048,
+    "longitude": -80.2481666,
+    "coordinates": [43.5448048, -80.2481666]
+  },
+  "milton": {
+    "name": "Milton",
+    "latitude": 43.51681,
+    "longitude": -79.88294,
+    "coordinates": [43.51681, -79.88294]
+  },
+  "stoney-creek": {
+    "name": "Stoney Creek",
+    "latitude": 43.2232571,
+    "longitude": -79.7017250,
+    "coordinates": [43.2232571, -79.7017250]
+  },
+  "cambridge": {
+    "name": "Cambridge",
+    "latitude": 43.4565521,
+    "longitude": -80.4638552,
+    "coordinates": [43.4565521, -80.4638552]
+  },
+  "kitchener": {
+    "name": "Kitchener",
+    "latitude": 43.450301,
+    "longitude": -80.4831917,
+    "coordinates": [43.450301, -80.4831917]
+  }
+}

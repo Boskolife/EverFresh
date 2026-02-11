@@ -724,9 +724,9 @@ function initFormModal() {
     setBodyScrollLocked(false);
   }
 
-  // Open modal when clicking any button on the site, except buttons inside the modal
-  const allButtons = Array.from(document.querySelectorAll('button'));
-  allButtons.forEach((button) => {
+  // Open modal when clicking buttons with data-open-modal attribute, except buttons inside the modal and location buttons
+  const modalButtons = Array.from(document.querySelectorAll('button[data-open-modal]'));
+  modalButtons.forEach((button) => {
     if (modal.contains(button)) return;
 
     button.addEventListener('click', () => {
@@ -869,9 +869,50 @@ function initWow() {
   wow.init();
 }
 
+function initLocationsMap() {
+  const locationsSection = document.querySelector('.locations');
+  if (!locationsSection) return;
+
+  const buttons = locationsSection.querySelectorAll('.locations__btn');
+  const markers = locationsSection.querySelectorAll('.locations__marker');
+
+  if (!buttons.length || !markers.length) return;
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const locationId = button.getAttribute('data-location');
+      if (!locationId) return;
+
+      // Remove active class from all buttons
+      buttons.forEach((btn) => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+
+      // Add active class to clicked button
+      button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
+
+      // Hide all markers
+      markers.forEach((marker) => {
+        marker.classList.remove('active');
+      });
+
+      // Show corresponding marker
+      const targetMarker = locationsSection.querySelector(
+        `[data-marker="${locationId}"]`,
+      );
+      if (targetMarker) {
+        targetMarker.classList.add('active');
+      }
+    });
+  });
+}
+
 updateCurrentYear();
 initBeforeAfterSlider();
 initReviewsSlider();
 initWorkSlider();
 initFormModal();
 initWow();
+initLocationsMap();
