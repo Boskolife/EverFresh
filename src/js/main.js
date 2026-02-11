@@ -724,12 +724,14 @@ function initFormModal() {
     setBodyScrollLocked(false);
   }
 
-  // Open modal when clicking buttons with data-open-modal attribute, except buttons inside the modal and location buttons
+  // Open modal when clicking buttons with data-modal="open" or data-open-modal attribute
+  // Excludes buttons inside the modal and location buttons
   const modalButtons = Array.from(
-    document.querySelectorAll('button[data-open-modal]'),
+    document.querySelectorAll('button[data-modal="open"], button[data-open-modal]'),
   );
   modalButtons.forEach((button) => {
     if (modal.contains(button)) return;
+    if (button.closest('.locations')) return;
 
     button.addEventListener('click', () => {
       openModal();
