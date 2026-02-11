@@ -1,3 +1,20 @@
+html {
+  scroll-behavior: smooth;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $whiteF4;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $orange;
+    border-radius: 4px;
+  }
+}
+
 // Visually hidden but available to screen readers
 .skip-link {
   position: absolute;
