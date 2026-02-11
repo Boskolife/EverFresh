@@ -296,6 +296,10 @@
     line-height: 130%;
     letter-spacing: -0.01em;
 
+    @include media ("<phone") {
+      max-width: 270px;
+    }
+
     a {
       color: $blue;
       font-weight: 500;

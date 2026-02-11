@@ -21,6 +21,15 @@
       text-align: center;
       max-width: 250px;
     }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        color: $orange;
+      }
+    }
   }
 
   &__creator {

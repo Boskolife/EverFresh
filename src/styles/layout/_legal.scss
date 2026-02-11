@@ -1,0 +1,59 @@
+// Legal pages (Terms of Use, Privacy Policy)
+.legal-page {
+  padding: 80px 0 120px;
+
+  @include media('<=tablet') {
+    padding: 100px 0 40px 0;
+  }
+}
+
+.legal-page__title {
+  margin-bottom: 8px;
+  @include adaptive-value('font-size', 64, 40, 1);
+}
+
+.legal-page__updated {
+  margin: 0 0 32px;
+  color: #666;
+  font-size: 14px;
+}
+
+.legal-page__content {
+  max-width: 720px;
+
+  h2 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    margin: 0 0 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  ul {
+    margin: 0 0 16px;
+    padding-left: 24px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  a {
+    color: $orange;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

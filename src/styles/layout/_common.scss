@@ -15,6 +15,17 @@ html {
   }
 }
 
+.body-legal {
+  .header__logo {
+    color: $black;
+  }
+
+  .header__menu-btn {
+    color: $black;
+    border-color: $black;
+  }
+}
+
 // Visually hidden but available to screen readers
 .skip-link {
   position: absolute;
