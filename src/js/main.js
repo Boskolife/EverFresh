@@ -2,6 +2,8 @@ import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'animate.css/animate.min.css';
+import WOW from 'wow.js/src/WOW.js';
 
 function updateCurrentYear() {
   const currentYear = new Date().getFullYear();
@@ -259,6 +261,18 @@ function initFormModal() {
   const step1Form = step1?.querySelector('form');
   const step2Form = step2?.querySelector('form');
 
+  // Restrict phone input to digits and common symbols only (no letters)
+  const phoneInput = modal.querySelector('input[name="phone"]');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function () {
+      const allowed = /[\d\s+\-()]/g;
+      const filtered = (this.value.match(allowed) || []).join('');
+      if (this.value !== filtered) {
+        this.value = filtered;
+      }
+    });
+  }
+
   let currentStepIndex = 0;
 
   function setBodyScrollLocked(isLocked) {
@@ -383,8 +397,23 @@ function initFormModal() {
       return false;
     }
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(emailInput.value.trim())) {
+      showStepError(step2, 'Please enter a valid email address (e.g. name@example.com).');
+      markInvalidField(emailInput);
+      return false;
+    }
+
     if (!phoneInput.value.trim()) {
       showStepError(step2, 'Please enter your phone number.');
+      markInvalidField(phoneInput);
+      return false;
+    }
+
+    const phoneDigitsOnly = phoneInput.value.replace(/\D/g, '');
+    const minPhoneDigits = 9;
+    if (phoneDigitsOnly.length < minPhoneDigits) {
+      showStepError(step2, 'Please enter a valid phone number (at least 9 digits).');
       markInvalidField(phoneInput);
       return false;
     }
@@ -603,8 +632,29 @@ function initFormModal() {
   });
 }
 
+function initWow() {
+  // Attach animation classes from data-wow-animation attribute
+  const animatedElements = document.querySelectorAll('[data-wow-animation]');
+  animatedElements.forEach((element) => {
+    const animationClass = element.getAttribute('data-wow-animation');
+    if (animationClass && !element.classList.contains(animationClass)) {
+      element.classList.add(animationClass);
+    }
+  });
+
+  const wow = new WOW({
+    boxClass: 'wow',
+    animateClass: 'animate__animated',
+    offset: 24,
+    mobile: true,
+    live: true,
+  });
+  wow.init();
+}
+
 updateCurrentYear();
 initBeforeAfterSlider();
 initReviewsSlider();
 initWorkSlider();
 initFormModal();
+initWow();

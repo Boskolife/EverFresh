@@ -4,7 +4,7 @@
 
   &.interior {
     .services__title {
-      @include media ("<phone") {
+      @include media('<phone') {
         max-width: 250px;
         width: 100%;
         margin: 0 auto 8px auto;
@@ -12,9 +12,23 @@
     }
   }
 
+  &.exterior {
+    .services__card {
+      &:nth-child(4) {
+        .services__card-title {
+          br {
+            @include media('<phone') {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
   &__content {
     text-align: center;
-    max-width: 845px;
+    max-width: 880px;
     width: 100%;
     margin: 0 auto;
     @include adaptive-value('margin-bottom', 48, 32, 1);

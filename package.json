@@ -22,6 +22,8 @@
     "vite-plugin-handlebars": "^1.6.0"
   },
   "dependencies": {
-    "swiper": "^12.1.0"
+    "animate.css": "^4.1.1",
+    "swiper": "^12.1.0",
+    "wow.js": "^1.2.2"
   }
 }

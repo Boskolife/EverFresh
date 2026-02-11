@@ -76,6 +76,11 @@
                     </div>
                     <label class="form-modal__agree">
                         <input type="checkbox" name="agree" class="form-modal__agree-input" required>
+                        <span class="form-modal__agree-box" aria-hidden="true">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
                         <span class="form-modal__agree-text">By clicking next or submit you agree to receive phone,
                             email, or text communication from us per our <a href="#">Terms of Use</a> and <a
                                 href="#">Privacy Policy</a>.</span>
@@ -105,9 +110,13 @@
                             <input type="text" name="last-name" placeholder="Last Name" class="form-modal__input"
                                 required>
                         </div>
-                        <input type="email" name="email" placeholder="Email" class="form-modal__input" required>
+                        <input type="email" name="email" placeholder="Email" class="form-modal__input" required
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                            title="Please enter a valid email address (e.g. name@example.com)">
                         <input type="tel" name="phone" placeholder="+49 160 606 6060" class="form-modal__input"
-                            required>
+                            required inputmode="tel"
+                            pattern="[\d\s+\-()]{9,}"
+                            title="Please enter a valid phone number (digits, +, spaces, dashes, parentheses).">
                     </div>
                     <div class="form-modal__buttons">
                         <button type="submit" class="btn btn_orange form-modal__next back">
