@@ -4,6 +4,16 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'animate.css/animate.min.css';
 import WOW from 'wow.js/src/WOW.js';
+import emailjs from '@emailjs/browser';
+
+// EmailJS: replace with your Service ID, Template ID and Public Key from https://dashboard.emailjs.com
+// In your EmailJS template you can use: {{firstName}}, {{lastName}}, {{email}}, {{phone}},
+// {{propertyType}}, {{paintScope}}, {{agreeToTerms}}, {{timeSlots}}
+const EMAILJS_CONFIG = {
+  serviceId: 'YOUR_SERVICE_ID',
+  templateId: 'YOUR_TEMPLATE_ID',
+  publicKey: 'YOUR_PUBLIC_KEY',
+};
 
 function updateCurrentYear() {
   const currentYear = new Date().getFullYear();
@@ -488,6 +498,28 @@ function initFormModal() {
     };
   }
 
+  // Flatten form data for EmailJS template variables (e.g. {{firstName}}, {{email}}, {{timeSlots}})
+  function buildEmailJSParams(payload) {
+    const dayLabels = { mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat' };
+    const slotLabels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
+    const timeParts = [];
+    Object.entries(payload.timeEstimate || {}).forEach(([day, slot]) => {
+      if (slot) {
+        timeParts.push(`${dayLabels[day] || day}: ${slotLabels[slot] || slot}`);
+      }
+    });
+    return {
+      firstName: payload.contact?.firstName ?? '',
+      lastName: payload.contact?.lastName ?? '',
+      email: payload.contact?.email ?? '',
+      phone: payload.contact?.phone ?? '',
+      propertyType: payload.project?.propertyType ?? '',
+      paintScope: payload.project?.paintScope ?? '',
+      agreeToTerms: payload.project?.agreeToTerms ? 'Yes' : 'No',
+      timeSlots: timeParts.join('; ') || '—',
+    };
+  }
+
   function resetForm() {
     // Step 1: project info
     const propertyTypeHome = modal.querySelector(
@@ -619,11 +651,37 @@ function initFormModal() {
     if (!validateStep3()) return;
 
     const payload = collectFormData();
-    // Simulated request payload
-    console.log('EverFresh form modal payload:', payload);
+    const templateParams = buildEmailJSParams(payload);
+    const { serviceId, templateId, publicKey } = EMAILJS_CONFIG;
 
-    resetForm();
-    showStep(3);
+    if (!serviceId || !templateId || !publicKey || serviceId === 'YOUR_SERVICE_ID') {
+      console.warn('EverFresh: EmailJS not configured. Set EMAILJS_CONFIG in main.js.');
+      resetForm();
+      showStep(3);
+      return;
+    }
+
+    const sendButton = step3Send;
+    const originalText = sendButton?.textContent;
+    if (sendButton) {
+      sendButton.disabled = true;
+      sendButton.textContent = 'Sending…';
+    }
+    clearStepErrors(step3);
+
+    emailjs.send(serviceId, templateId, templateParams, { publicKey })
+      .then(() => {
+        resetForm();
+        showStep(3);
+      })
+      .catch((err) => {
+        showStepError(step3, 'Something went wrong. Please try again or contact us directly.');
+        if (sendButton) {
+          sendButton.disabled = false;
+          sendButton.textContent = originalText;
+        }
+        console.error('EverFresh EmailJS send failed:', err);
+      });
   });
 
   step4Close?.addEventListener('click', (event) => {
