@@ -391,23 +391,6 @@
     }
   }
 
-  &__input-box {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    margin-bottom: 12px;
-
-    @include media('<tablet') {
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .form-modal__input {
-      margin-bottom: 0 !important;
-    }
-  }
-
   &__input {
     width: 100%;
     border: 1px solid #e7e7f0;

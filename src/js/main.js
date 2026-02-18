@@ -7,7 +7,7 @@ import WOW from 'wow.js/src/WOW.js';
 import emailjs from '@emailjs/browser';
 
 // EmailJS: replace with your Service ID, Template ID and Public Key from https://dashboard.emailjs.com
-// In your EmailJS template you can use: {{firstName}}, {{lastName}}, {{email}}, {{phone}},
+// In your EmailJS template you can use: {{firstName}}, {{email}}, {{phone}},
 // {{propertyType}}, {{paintScope}}, {{agreeToTerms}}, {{timeSlots}}
 const EMAILJS_CONFIG = {
   serviceId: 'service_dm9hgzq',
@@ -269,16 +269,36 @@ function initFormModal() {
   const step1Form = step1?.querySelector('form');
   const step2Form = step2?.querySelector('form');
 
-  // Restrict phone input to digits and common symbols only (no letters)
+  // Phone: auto prefix "+1 ", only digits after it, max 10 digits
+  const PHONE_PREFIX = '+1 ';
   const phoneInput = modal.querySelector('input[name="phone"]');
   if (phoneInput) {
-    phoneInput.addEventListener('input', function () {
-      const allowed = /[\d\s+\-()]/g;
-      const filtered = (this.value.match(allowed) || []).join('');
-      if (this.value !== filtered) {
-        this.value = filtered;
+    phoneInput.addEventListener('focus', function () {
+      const v = this.value.trim();
+      if (!v || !v.startsWith('+')) {
+        this.value = PHONE_PREFIX;
       }
       updateStepButtons();
+    });
+    phoneInput.addEventListener('input', function () {
+      let v = this.value;
+      if (!v.startsWith(PHONE_PREFIX)) {
+        const digits = v.replace(/\D/g, '').slice(0, 10);
+        v = PHONE_PREFIX + digits;
+      } else {
+        const after = v.slice(PHONE_PREFIX.length).replace(/\D/g, '').slice(0, 10);
+        v = PHONE_PREFIX + after;
+      }
+      if (this.value !== v) {
+        this.value = v;
+      }
+      updateStepButtons();
+    });
+    phoneInput.addEventListener('keydown', function (e) {
+      if (e.key !== 'Backspace') return;
+      if (this.selectionStart <= PHONE_PREFIX.length && this.selectionEnd <= PHONE_PREFIX.length) {
+        e.preventDefault();
+      }
     });
   }
 
@@ -306,16 +326,11 @@ function initFormModal() {
   // Add event listeners for Step 2 validation
   if (step2) {
     const firstNameInput = step2.querySelector('input[name="name"]');
-    const lastNameInput = step2.querySelector('input[name="last-name"]');
     const emailInput = step2.querySelector('input[name="email"]');
 
     if (firstNameInput) {
       firstNameInput.addEventListener('input', updateStepButtons);
       firstNameInput.addEventListener('blur', updateStepButtons);
-    }
-    if (lastNameInput) {
-      lastNameInput.addEventListener('input', updateStepButtons);
-      lastNameInput.addEventListener('blur', updateStepButtons);
     }
     if (emailInput) {
       emailInput.addEventListener('input', updateStepButtons);
@@ -436,23 +451,16 @@ function initFormModal() {
     clearStepErrors(step2);
 
     const firstNameInput = step2.querySelector('input[name="name"]');
-    const lastNameInput = step2.querySelector('input[name="last-name"]');
     const emailInput = step2.querySelector('input[name="email"]');
     const phoneInput = step2.querySelector('input[name="phone"]');
 
-    if (!firstNameInput || !lastNameInput || !emailInput || !phoneInput) {
+    if (!firstNameInput || !emailInput || !phoneInput) {
       return false;
     }
 
     if (!firstNameInput.value.trim()) {
       showStepError(step2, 'Please enter your first name.');
       markInvalidField(firstNameInput);
-      return false;
-    }
-
-    if (!lastNameInput.value.trim()) {
-      showStepError(step2, 'Please enter your last name.');
-      markInvalidField(lastNameInput);
       return false;
     }
 
@@ -472,18 +480,20 @@ function initFormModal() {
       return false;
     }
 
-    if (!phoneInput.value.trim()) {
+    const phoneVal = phoneInput.value.trim();
+    if (!phoneVal || phoneVal === '+1' || phoneVal === '+1 ') {
       showStepError(step2, 'Please enter your phone number.');
       markInvalidField(phoneInput);
       return false;
     }
 
-    const phoneDigitsOnly = phoneInput.value.replace(/\D/g, '');
-    const minPhoneDigits = 9;
-    if (phoneDigitsOnly.length < minPhoneDigits) {
+    const nationalDigits = phoneVal.startsWith(PHONE_PREFIX)
+      ? phoneVal.slice(PHONE_PREFIX.length).replace(/\D/g, '')
+      : phoneVal.replace(/\D/g, '');
+    if (nationalDigits.length !== 10) {
       showStepError(
         step2,
-        'Please enter a valid phone number (at least 9 digits).',
+        'Please enter a valid US/Canada phone number (10 digits).',
       );
       markInvalidField(phoneInput);
       return false;
@@ -536,15 +546,14 @@ function initFormModal() {
   function checkStep2Valid() {
     if (!step2) return false;
     const firstNameInput = step2.querySelector('input[name="name"]');
-    const lastNameInput = step2.querySelector('input[name="last-name"]');
     const emailInput = step2.querySelector('input[name="email"]');
     const phoneInput = step2.querySelector('input[name="phone"]');
 
-    if (!firstNameInput || !lastNameInput || !emailInput || !phoneInput) {
+    if (!firstNameInput || !emailInput || !phoneInput) {
       return false;
     }
 
-    if (!firstNameInput.value.trim() || !lastNameInput.value.trim()) {
+    if (!firstNameInput.value.trim()) {
       return false;
     }
 
@@ -553,8 +562,14 @@ function initFormModal() {
       return false;
     }
 
-    const phoneDigitsOnly = phoneInput.value.replace(/\D/g, '');
-    if (phoneDigitsOnly.length < 9) {
+    const phoneVal = phoneInput.value.trim();
+    if (!phoneVal || phoneVal === '+1' || phoneVal === '+1 ') {
+      return false;
+    }
+    const nationalDigits = phoneVal.startsWith(PHONE_PREFIX)
+      ? phoneVal.slice(PHONE_PREFIX.length).replace(/\D/g, '')
+      : phoneVal.replace(/\D/g, '');
+    if (nationalDigits.length !== 10) {
       return false;
     }
 
@@ -598,8 +613,6 @@ function initFormModal() {
     // Step 2
     const firstNameValue =
       modal.querySelector('input[name="name"]')?.value.trim() || '';
-    const lastNameValue =
-      modal.querySelector('input[name="last-name"]')?.value.trim() || '';
     const emailValue =
       modal.querySelector('input[name="email"]')?.value.trim() || '';
     const phoneValue =
@@ -624,7 +637,6 @@ function initFormModal() {
       },
       contact: {
         firstName: firstNameValue,
-        lastName: lastNameValue,
         email: emailValue,
         phone: phoneValue,
       },
@@ -655,7 +667,6 @@ function initFormModal() {
     });
     return {
       firstName: payload.contact?.firstName ?? '',
-      lastName: payload.contact?.lastName ?? '',
       email: payload.contact?.email ?? '',
       phone: payload.contact?.phone ?? '',
       propertyType: payload.project?.propertyType ?? '',
@@ -680,11 +691,9 @@ function initFormModal() {
 
     // Step 2: contact fields
     const nameInput = modal.querySelector('input[name="name"]');
-    const lastNameInput = modal.querySelector('input[name="last-name"]');
     const emailInput = modal.querySelector('input[name="email"]');
     const phoneInput = modal.querySelector('input[name="phone"]');
     if (nameInput) nameInput.value = '';
-    if (lastNameInput) lastNameInput.value = '';
     if (emailInput) emailInput.value = '';
     if (phoneInput) phoneInput.value = '';
 
