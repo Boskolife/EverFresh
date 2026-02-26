@@ -25,13 +25,17 @@ function updateCurrentYear() {
 
 function initBeforeAfterSlider() {
   const container = document.querySelector('.positioning__item-images');
-  const slider = container?.querySelector('.positioning__slide-button');
+  const sliderWrapper = container?.querySelector(
+    '.positioning__slide-button-wrapper',
+  );
+  const slider = sliderWrapper?.querySelector('.positioning__slide-button');
   const beforeImage = container?.querySelector(
     '.positioning__image.before-img',
   );
   const afterImage = container?.querySelector('.positioning__image.after-img');
 
-  if (!container || !slider || !beforeImage || !afterImage) return;
+  if (!container || !sliderWrapper || !slider || !beforeImage || !afterImage)
+    return;
 
   const clipTarget = beforeImage.querySelector('img');
   if (!clipTarget) return;
@@ -57,9 +61,9 @@ function initBeforeAfterSlider() {
   const initSlider = () => {
     currentPercentage = 50;
     const clipPathValue = `inset(0 ${100 - currentPercentage}% 0 0)`;
-    slider.style.left = `${currentPercentage}%`;
-    slider.style.transform = 'translate(-50%, -50%)';
-    slider.style.webkitTransform = 'translate(-50%, -50%)';
+    sliderWrapper.style.left = `${currentPercentage}%`;
+    sliderWrapper.style.transform = 'translateX(-50%)';
+    sliderWrapper.style.webkitTransform = 'translateX(-50%)';
     clipTarget.style.clipPath = clipPathValue;
     clipTarget.style.webkitClipPath = clipPathValue;
     slider.setAttribute('aria-valuenow', currentPercentage);
@@ -78,9 +82,9 @@ function initBeforeAfterSlider() {
     currentPercentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
 
     const clipPathValue = `inset(0 ${100 - currentPercentage}% 0 0)`;
-    slider.style.left = `${currentPercentage}%`;
-    slider.style.transform = 'translate(-50%, -50%)';
-    slider.style.webkitTransform = 'translate(-50%, -50%)';
+    sliderWrapper.style.left = `${currentPercentage}%`;
+    sliderWrapper.style.transform = 'translateX(-50%)';
+    sliderWrapper.style.webkitTransform = 'translateX(-50%)';
     clipTarget.style.clipPath = clipPathValue;
     clipTarget.style.webkitClipPath = clipPathValue;
     const roundedPercentage = Math.round(currentPercentage);
@@ -123,7 +127,7 @@ function initBeforeAfterSlider() {
 
   initSlider();
 
-  slider.addEventListener('mousedown', (e) => {
+  sliderWrapper.addEventListener('mousedown', (e) => {
     e.preventDefault();
     handleStart(e.clientX, true);
   });
@@ -136,7 +140,7 @@ function initBeforeAfterSlider() {
   document.addEventListener('mousemove', mouseMoveHandler);
   document.addEventListener('mouseup', mouseUpHandler);
 
-  slider.addEventListener('touchstart', (e) => {
+  sliderWrapper.addEventListener('touchstart', (e) => {
     e.preventDefault();
     handleStart(e.touches[0].clientX, true);
   });
@@ -185,7 +189,12 @@ function initBeforeAfterSlider() {
   });
 
   container.addEventListener('click', (e) => {
-    if (e.target === slider || slider.contains(e.target)) return;
+    if (
+      e.target === slider ||
+      slider.contains(e.target) ||
+      (sliderWrapper && sliderWrapper.contains(e.target))
+    )
+      return;
     updateSlider(e.clientX);
   });
 }
