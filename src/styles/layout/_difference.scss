@@ -1,0 +1,30 @@
+.difference {
+  @include adaptive-value('padding-top', 50, 32, 1);
+  @include adaptive-value('padding-bottom', 50, 32, 1);
+
+  &__label {
+    justify-content: center;
+  }
+
+  &__title {
+    text-align: center;
+    @include adaptive-value('margin-bottom', 48, 32, 1);
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @include media('<tablet') {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__item-images {
+    @include media('<tablet') {
+      max-width: 100%;
+      min-height: 320px;
+    }
+  }
+}
