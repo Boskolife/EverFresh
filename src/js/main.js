@@ -861,6 +861,20 @@ function initFormModal() {
     emailjs
       .send(serviceId, templateId, templateParams, { publicKey })
       .then(() => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_submit_success',
+          formName: 'quote',
+          formData: {
+            propertyType: payload.project?.propertyType,
+            paintScope: payload.project?.paintScope,
+            agreeToTerms: payload.project?.agreeToTerms,
+            firstName: payload.contact?.firstName,
+            email: payload.contact?.email,
+            phone: payload.contact?.phone,
+            timeEstimate: payload.timeEstimate,
+          },
+        });
         resetForm();
         showStep(3);
       })
