@@ -284,7 +284,6 @@ function initFormModal() {
 
   const step1 = modal.querySelector('.form-modal__step-1');
   const step2 = modal.querySelector('.form-modal__step-2');
-  const step3 = modal.querySelector('.form-modal__step-3');
   const step4 = modal.querySelector('.form-modal__step-4');
 
   const step1Form = step1?.querySelector('form');
@@ -360,16 +359,6 @@ function initFormModal() {
     if (phoneInput) {
       phoneInput.addEventListener('blur', updateStepButtons);
     }
-  }
-
-  // Add event listeners for Step 3 validation
-  if (step3) {
-    const timeGridInputs = step3.querySelectorAll(
-      '.form-modal__time-grid-input',
-    );
-    timeGridInputs.forEach((input) => {
-      input.addEventListener('change', updateStepButtons);
-    });
   }
 
   let currentStepIndex = 0;
@@ -523,29 +512,6 @@ function initFormModal() {
     return true;
   }
 
-  function validateStep3() {
-    if (!step3) return true;
-    clearStepErrors(step3);
-
-    const checkedInputs = step3.querySelectorAll(
-      '.form-modal__time-grid-input:checked',
-    );
-
-    if (!checkedInputs.length) {
-      showStepError(
-        step3,
-        'Please select at least one preferred day and time slot.',
-      );
-      const firstSlotInput = step3.querySelector(
-        '.form-modal__time-grid-input',
-      );
-      markInvalidField(firstSlotInput);
-      return false;
-    }
-
-    return true;
-  }
-
   // Check validation without showing errors (for button state)
   function checkStep1Valid() {
     if (!step1) return false;
@@ -597,14 +563,6 @@ function initFormModal() {
     return true;
   }
 
-  function checkStep3Valid() {
-    if (!step3) return false;
-    const checkedInputs = step3.querySelectorAll(
-      '.form-modal__time-grid-input:checked',
-    );
-    return checkedInputs.length > 0;
-  }
-
   // Update button disabled state based on validation
   function updateStepButtons() {
     if (currentStepIndex === 0) {
@@ -614,10 +572,6 @@ function initFormModal() {
     } else if (currentStepIndex === 1) {
       if (step2Next) {
         step2Next.disabled = !checkStep2Valid();
-      }
-    } else if (currentStepIndex === 2) {
-      if (step3Send) {
-        step3Send.disabled = !checkStep3Valid();
       }
     }
   }
@@ -639,17 +593,6 @@ function initFormModal() {
     const phoneValue =
       modal.querySelector('input[name="phone"]')?.value.trim() || '';
 
-    // Step 3
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-    const timeSelections = {};
-
-    days.forEach((day) => {
-      const checkedInput = modal.querySelector(
-        `input[name="time[${day}]"]:checked`,
-      );
-      timeSelections[day] = checkedInput ? checkedInput.value : null;
-    });
-
     return {
       project: {
         propertyType: propertyTypeValue,
@@ -661,31 +604,11 @@ function initFormModal() {
         email: emailValue,
         phone: phoneValue,
       },
-      timeEstimate: timeSelections,
     };
   }
 
   // Flatten form data for EmailJS template variables (e.g. {{firstName}}, {{email}}, {{timeSlots}})
   function buildEmailJSParams(payload) {
-    const dayLabels = {
-      mon: 'Mon',
-      tue: 'Tue',
-      wed: 'Wed',
-      thu: 'Thu',
-      fri: 'Fri',
-      sat: 'Sat',
-    };
-    const slotLabels = {
-      morning: 'Morning',
-      afternoon: 'Afternoon',
-      evening: 'Evening',
-    };
-    const timeParts = [];
-    Object.entries(payload.timeEstimate || {}).forEach(([day, slot]) => {
-      if (slot) {
-        timeParts.push(`${dayLabels[day] || day}: ${slotLabels[slot] || slot}`);
-      }
-    });
     return {
       firstName: payload.contact?.firstName ?? '',
       email: payload.contact?.email ?? '',
@@ -693,7 +616,8 @@ function initFormModal() {
       propertyType: payload.project?.propertyType ?? '',
       paintScope: payload.project?.paintScope ?? '',
       agreeToTerms: payload.project?.agreeToTerms ? 'Yes' : 'No',
-      timeSlots: timeParts.join('; ') || '—',
+      // Step 3 was removed from the UI; keep EmailJS template variable stable.
+      timeSlots: '—',
     };
   }
 
@@ -717,15 +641,6 @@ function initFormModal() {
     if (nameInput) nameInput.value = '';
     if (emailInput) emailInput.value = '';
     if (phoneInput) phoneInput.value = '';
-
-    // Step 3: time grid – uncheck all radio buttons (no default selection)
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-    days.forEach((day) => {
-      const radioInputs = modal.querySelectorAll(`input[name="time[${day}]"]`);
-      radioInputs.forEach((input) => {
-        input.checked = false;
-      });
-    });
 
     steps.forEach((step) => clearStepErrors(step));
   }
@@ -790,8 +705,6 @@ function initFormModal() {
   const step1Next = step1?.querySelector('.form-modal__next');
   const step2Back = step2?.querySelector('.form-modal__next.back');
   const step2Next = step2?.querySelector('.form-modal__next:not(.back)');
-  const step3Back = step3?.querySelector('.form-modal__next.back');
-  const step3Send = step3?.querySelector('.form-modal__next:not(.back)');
   const step4Close = step4?.querySelector('.form-modal__next');
 
   // Initialize button states after buttons are defined
@@ -820,17 +733,6 @@ function initFormModal() {
   step2Next?.addEventListener('click', (event) => {
     event.preventDefault();
     if (!validateStep2()) return;
-    showStep(2);
-  });
-
-  step3Back?.addEventListener('click', (event) => {
-    event.preventDefault();
-    showStep(1);
-  });
-
-  step3Send?.addEventListener('click', (event) => {
-    event.preventDefault();
-    if (!validateStep3()) return;
 
     const payload = collectFormData();
     const templateParams = buildEmailJSParams(payload);
@@ -846,17 +748,17 @@ function initFormModal() {
         'EverFresh: EmailJS not configured. Set EMAILJS_CONFIG in main.js.',
       );
       resetForm();
-      showStep(3);
+      showStep(2);
       return;
     }
 
-    const sendButton = step3Send;
+    const sendButton = step2Next;
     const originalText = sendButton?.textContent;
     if (sendButton) {
       sendButton.disabled = true;
       sendButton.textContent = 'Sending…';
     }
-    clearStepErrors(step3);
+    clearStepErrors(step2);
 
     emailjs
       .send(serviceId, templateId, templateParams, { publicKey })
@@ -872,17 +774,13 @@ function initFormModal() {
             firstName: payload.contact?.firstName,
             email: payload.contact?.email,
             phone: payload.contact?.phone,
-            timeEstimate: payload.timeEstimate,
           },
         });
         resetForm();
-        showStep(3);
+        showStep(2);
       })
       .catch((err) => {
-        showStepError(
-          step3,
-          'Something went wrong. Please try again or contact us directly.',
-        );
+        showStepError(step2, 'Something went wrong. Please try again or contact us directly.');
         if (sendButton) {
           sendButton.disabled = false;
           sendButton.textContent = originalText;
