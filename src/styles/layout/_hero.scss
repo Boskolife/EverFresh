@@ -70,48 +70,5 @@
     width: 100%;
     max-width: 250px;
   }
-
-  // Constant "shake" animation for the call button.
-  // WOW/animate.css runs animations on appearance; this one loops continuously.
-  &__btn--call-shake {
-    display: inline-block;
-    transform-origin: 50% 20%;
-    animation: heroCallShake 1.4s infinite ease-in-out;
-  }
 }
 
-@keyframes heroCallShake {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  10% {
-    transform: translate3d(-1px, 0, 0) rotate(-1deg);
-  }
-  20% {
-    transform: translate3d(2px, 0, 0) rotate(1deg);
-  }
-  30% {
-    transform: translate3d(-3px, 0, 0) rotate(-1deg);
-  }
-  40% {
-    transform: translate3d(3px, 0, 0) rotate(1deg);
-  }
-  50% {
-    transform: translate3d(-2px, 0, 0) rotate(-1deg);
-  }
-  60% {
-    transform: translate3d(2px, 0, 0) rotate(1deg);
-  }
-  70% {
-    transform: translate3d(-1px, 0, 0) rotate(-1deg);
-  }
-  80% {
-    transform: translate3d(1px, 0, 0) rotate(1deg);
-  }
-  90% {
-    transform: translate3d(-1px, 0, 0) rotate(-1deg);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-}

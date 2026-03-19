@@ -46,6 +46,19 @@
     @include adaptive-value('margin-bottom', 32, 24, 1);
   }
 
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  &__btn {
+    width: 100%;
+    max-width: 250px;
+  }
+
   &__cards {
     display: flex;
     flex-wrap: wrap;
